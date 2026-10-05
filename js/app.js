@@ -54,12 +54,63 @@ function isBookmarked(id) {
     return getBookmarks().includes(id);
 }
 
+// Hapus Studi Kasus
+function deleteCaseStudy(id, event) {
+    if (event) event.stopPropagation();
+    const targetCase = allCases.find(c => c.id === id);
+    if (!targetCase) return;
+
+    Swal.fire({
+        title: 'Hapus Studi Kasus?',
+        text: `Apakah Anda yakin ingin menghapus "${targetCase.title}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: 'Ya, Hapus',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            allCases = allCases.filter(c => c.id !== id);
+            saveCaseStudies(allCases);
+
+            // Bersihkan dari bookmark jika ada
+            let bookmarks = getBookmarks().filter(bId => bId !== id);
+            localStorage.setItem("alpro_bookmarks", JSON.stringify(bookmarks));
+
+            // Jika modal sedang terbuka, tutup
+            const modalEl = document.getElementById("caseDetailModal");
+            const modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (modalInstance) modalInstance.hide();
+
+            renderCategoryPills();
+            renderCaseCards();
+            updateStats();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Terhapus!',
+                text: 'Studi kasus telah dihapus dari repositori.',
+                timer: 1500,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+            });
+        }
+    });
+}
+
 // ==========================================
 // 2. RENDERING KOMPONEN UI
 // ==========================================
 function renderCategoryPills() {
     const container = document.getElementById("categoryPillsContainer");
     if (!container) return;
+
+    if (allCases.length === 0) {
+        container.innerHTML = "";
+        return;
+    }
 
     // Ambil kategori unik dari allCases
     const categories = ["Semua", ...new Set(allCases.map(c => c.category))];
@@ -84,7 +135,30 @@ function renderCaseCards() {
 
     const bookmarks = getBookmarks();
 
-    // Filter data
+    // Jika studi kasus masih 0 sama sekali
+    if (allCases.length === 0) {
+        container.innerHTML = "";
+        if (emptyState) {
+            emptyState.classList.remove("d-none");
+            emptyState.innerHTML = `
+                <div class="py-5 text-center">
+                    <div class="display-3 text-primary mb-3">
+                        <i class="bi bi-journal-plus"></i>
+                    </div>
+                    <h3 class="fw-bold text-body">Belum Ada Studi Kasus Tersimpan (0 Kasus)</h3>
+                    <p class="text-secondary mx-auto mb-4" style="max-width: 520px;">
+                        Koleksi Anda saat ini masih kosong (0 studi kasus). Silakan klik tombol di bawah untuk menambahkan studi kasus algoritma & pemrograman C++ Anda sendiri.
+                    </p>
+                    <button class="btn btn-primary rounded-pill px-4 py-2 shadow" data-bs-toggle="modal" data-bs-target="#addCaseModal">
+                        <i class="bi bi-plus-circle me-1"></i> Tambah Studi Kasus Sekarang
+                    </button>
+                </div>
+            `;
+        }
+        return;
+    }
+
+    // Filter data jika ada data
     const filtered = allCases.filter(item => {
         const matchCategory = activeCategory === "Semua" || item.category === activeCategory;
         const matchDifficulty = activeDifficulty === "Semua" || item.difficulty === activeDifficulty;
@@ -92,14 +166,27 @@ function renderCaseCards() {
         const matchSearch = !searchQuery || 
             item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             item.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+            (item.tags && item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())));
 
         return matchCategory && matchDifficulty && matchBookmark && matchSearch;
     });
 
+    // Jika pencarian tidak menemukan hasil
     if (filtered.length === 0) {
         container.innerHTML = "";
-        if (emptyState) emptyState.classList.remove("d-none");
+        if (emptyState) {
+            emptyState.classList.remove("d-none");
+            emptyState.innerHTML = `
+                <div class="py-5 text-center">
+                    <div class="display-4 text-muted mb-3"><i class="bi bi-search"></i></div>
+                    <h4 class="fw-bold text-body">Tidak ada studi kasus yang cocok</h4>
+                    <p class="text-secondary">Coba ubah kata kunci pencarian atau reset filter.</p>
+                    <button class="btn btn-outline-primary rounded-pill px-4" onclick="resetAllFilters()">
+                        Tampilkan Semua Kasus
+                    </button>
+                </div>
+            `;
+        }
         return;
     }
 
@@ -125,11 +212,18 @@ function renderCaseCards() {
                             ${item.category}
                         </span>
                     </div>
-                    <button class="btn-bookmark ${bookmarked ? 'bookmarked' : ''}" 
-                            title="${bookmarked ? 'Hapus dari Favorit' : 'Simpan ke Favorit'}"
-                            onclick="toggleBookmark('${item.id}', event)">
-                        <i class="bi ${bookmarked ? 'bi-bookmark-star-fill text-warning' : 'bi-bookmark'}"></i>
-                    </button>
+                    <div class="d-flex align-items-center gap-1">
+                        <button class="btn-bookmark ${bookmarked ? 'bookmarked' : ''}" 
+                                title="${bookmarked ? 'Hapus dari Favorit' : 'Simpan ke Favorit'}"
+                                onclick="toggleBookmark('${item.id}', event)">
+                            <i class="bi ${bookmarked ? 'bi-bookmark-star-fill text-warning' : 'bi-bookmark'}"></i>
+                        </button>
+                        <button class="btn btn-sm text-danger border-0 p-1 opacity-75 hover-opacity-100" 
+                                title="Hapus Studi Kasus" 
+                                onclick="deleteCaseStudy('${item.id}', event)">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="case-card-body">
@@ -152,6 +246,24 @@ function renderCaseCards() {
         </div>
         `;
     }).join("");
+}
+
+function resetAllFilters() {
+    searchQuery = "";
+    activeCategory = "Semua";
+    activeDifficulty = "Semua";
+    onlyBookmarks = false;
+    const searchInput = document.getElementById("searchInput");
+    const diffSelect = document.getElementById("difficultySelect");
+    const bookmarkBtn = document.getElementById("btnFilterBookmarks");
+    if (searchInput) searchInput.value = "";
+    if (diffSelect) diffSelect.value = "Semua";
+    if (bookmarkBtn) {
+        bookmarkBtn.classList.remove("btn-warning");
+        bookmarkBtn.classList.add("btn-outline-warning");
+    }
+    renderCategoryPills();
+    renderCaseCards();
 }
 
 function updateStats() {
@@ -183,7 +295,7 @@ function openCaseModal(id) {
     document.getElementById("modalCaseDifficulty").textContent = item.difficulty;
     document.getElementById("modalCaseComplexityTime").textContent = item.complexity?.time || "O(1)";
     document.getElementById("modalCaseComplexitySpace").textContent = item.complexity?.space || "O(1)";
-    document.getElementById("modalCaseProblem").innerHTML = item.problem.replace(/\\n/g, "<br>");
+    document.getElementById("modalCaseProblem").innerHTML = (item.problem || "Belum ada deskripsi masalah.").replace(/\n/g, "<br>");
     
     // Pseudocode
     document.getElementById("modalCasePseudocode").textContent = item.pseudocode || "// Belum ada pseudocode";
@@ -193,8 +305,8 @@ function openCaseModal(id) {
     codeEl.textContent = item.code;
     
     // Sample IO
-    document.getElementById("modalCaseSampleInput").textContent = item.sampleInput || "-";
-    document.getElementById("modalCaseSampleOutput").textContent = item.sampleOutput || "-";
+    document.getElementById("modalCaseSampleInput").textContent = item.sampleInput || "(Tidak ada contoh input)";
+    document.getElementById("modalCaseSampleOutput").textContent = item.sampleOutput || "(Tidak ada contoh output)";
 
     // Setup interactive runner
     setupCaseSimulator(item);
@@ -375,7 +487,14 @@ function setupCaseSimulator(item) {
             break;
 
         default:
-            formHtml = `<p class="text-muted small mb-0">Klik tombol "Jalankan Simulasi" untuk mengeksekusi program.</p>`;
+            formHtml = `
+                <div class="row g-2">
+                    <div class="col-12">
+                        <label class="form-label small text-muted">Input Parameter Konsol / Argumen Program</label>
+                        <textarea id="sim_custom_input" class="form-control form-control-sm font-monospace" rows="2" placeholder="Masukkan input yang akan diuji...">${item.sampleInput || ""}</textarea>
+                    </div>
+                </div>
+            `;
             break;
     }
 
@@ -443,7 +562,6 @@ function runSimulation() {
                 outputText += "Error: Ukuran n harus antara 1 sampai 20.\n";
             } else {
                 outputText += `=== POLA HOLLOW DIAMOND (n = ${n}, total baris = ${2 * n - 1}) ===\n\n`;
-                // Top half
                 for (let i = 1; i <= n; i++) {
                     let line = " ".repeat(n - i);
                     for (let j = 1; j <= 2 * i - 1; j++) {
@@ -452,7 +570,6 @@ function runSimulation() {
                     }
                     outputText += line + "\n";
                 }
-                // Bottom half
                 for (let i = n - 1; i >= 1; i--) {
                     let line = " ".repeat(n - i);
                     for (let j = 1; j <= 2 * i - 1; j++) {
@@ -514,7 +631,6 @@ function runSimulation() {
             if (c1 !== r2) {
                 outputText += `[GAGAL] Matriks tidak dapat dikalikan! Kolom A (${c1}) != Baris B (${r2})\n`;
             } else {
-                // Multiply A x B
                 const C = Array.from({ length: r1 }, () => Array(c2).fill(0));
                 for (let i = 0; i < r1; i++) {
                     for (let j = 0; j < c2; j++) {
@@ -550,7 +666,6 @@ function runSimulation() {
             if (arr.length === 0) {
                 outputText += "Error: Masukkan sekurang-kurangnya 2 angka untuk diurutkan!\n";
             } else {
-                // Bubble sort simulation
                 let arrBubble = [...arr];
                 let bComps = 0, bSwaps = 0;
                 for (let i = 0; i < arrBubble.length - 1; i++) {
@@ -568,7 +683,6 @@ function runSimulation() {
                     if (!swapped) break;
                 }
 
-                // Quick sort simulation
                 let arrQuick = [...arr];
                 let qComps = 0, qSwaps = 0;
                 function qSort(items, left, right) {
@@ -693,7 +807,6 @@ function runSimulation() {
                 return { ...m, akhir, huruf: getHuruf(akhir) };
             });
 
-            // Urutkan ranking berdasarkan Nilai Akhir
             processed.sort((a, b) => b.akhir - a.akhir);
 
             outputText += "====================================================================\n";
@@ -713,6 +826,20 @@ function runSimulation() {
             });
             outputText += "====================================================================\n";
             outputText += `Mahasiswa Terbaik (Juara 1): ${processed[0].nama} dengan Nilai Akhir ${processed[0].akhir.toFixed(2)} [Grade ${processed[0].huruf}]\n`;
+
+        } else {
+            // Simulator untuk Studi Kasus Mandiri / Kustom
+            const customInput = document.getElementById("sim_custom_input")?.value || "";
+            outputText += `=== EKSEKUSI PROGRAM: ${currentActiveCase.title} ===\n\n`;
+            if (customInput.trim()) {
+                outputText += `[INPUT DIBERIKAN]:\n${customInput.trim()}\n\n`;
+            }
+            outputText += `[OUTPUT KONSOL C++]:\n`;
+            if (currentActiveCase.sampleOutput) {
+                outputText += `${currentActiveCase.sampleOutput}\n`;
+            } else {
+                outputText += `Program selesai dijalankan dengan sukses (Exit code: 0).\n`;
+            }
         }
 
         outputText += "\nProcess finished with exit code 0.\n";
@@ -806,20 +933,23 @@ function saveNewCaseStudy(e) {
 
 function resetToDefaultData() {
     Swal.fire({
-        title: 'Reset ke Data Default?',
-        text: 'Semua studi kasus buatan Anda akan dihapus dan dikembalikan ke materi standar UTS Alpro.',
+        title: 'Kosongkan Semua Studi Kasus?',
+        text: 'Tindakan ini akan mengosongkan seluruh studi kasus yang telah Anda tambahkan.',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#ef4444',
         cancelButtonColor: '#6b7280',
-        confirmButtonText: 'Ya, Reset Data',
+        confirmButtonText: 'Ya, Kosongkan',
         cancelButtonText: 'Batal'
     }).then((result) => {
         if (result.isConfirmed) {
-            localStorage.removeItem("alpro_case_studies");
-            loadCases();
+            allCases = [];
+            saveCaseStudies(allCases);
+            localStorage.setItem("alpro_bookmarks", JSON.stringify([]));
+            renderCategoryPills();
+            renderCaseCards();
             updateStats();
-            Swal.fire('Data Direset!', 'Koleksi studi kasus telah kembali ke konfigurasi awal.', 'success');
+            Swal.fire('Dikosongkan!', 'Seluruh studi kasus telah direset menjadi 0.', 'success');
         }
     });
 }
