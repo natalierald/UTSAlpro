@@ -45,3 +45,97 @@ Modul A menerima empat data utama:
 14. Tampilkan nomor kendaraan, durasi parkir, biaya parkir, denda, dan total pembayaran.
 15. Hasil perhitungan digunakan oleh Modul B untuk proses rekapitulasi.
 16. Selesai.
+
+## 6. Pseudocode Modul A
+```text
+{ Variabel }
+nomorKendaraan : string
+jenisKendaraan : char       { 'M' = Motor, 'C' = Mobil }
+lamaParkir     : double
+tiketHilang    : char       { 'Y' = Ya, 'N' = Tidak }
+durasiParkir   : integer
+biayaParkir    : integer
+denda          : integer
+totalBayar     : integer
+
+MULAI
+
+    output("=== PROGRAM PARKIR ===")
+
+    output("Masukkan nomor kendaraan")
+    input(nomorKendaraan)
+
+    REPEAT
+        output("Masukkan jenis kendaraan (M/C)")
+        input(jenisKendaraan)
+
+        IF (jenisKendaraan <> 'M' AND jenisKendaraan <> 'C') THEN
+            output("Jenis kendaraan tidak valid")
+        ENDIF
+    UNTIL (jenisKendaraan = 'M' OR jenisKendaraan = 'C')
+
+    REPEAT
+        output("Masukkan lama parkir")
+        input(lamaParkir)
+
+        IF (lamaParkir <= 0) THEN
+            output("Input tidak valid, masukkan lama parkir > 0")
+        ENDIF
+    UNTIL (lamaParkir > 0)
+
+    REPEAT
+        output("Apakah tiket hilang? (Y/N)")
+        input(tiketHilang)
+
+        IF (tiketHilang <> 'Y' AND tiketHilang <> 'N') THEN
+            output("Input tidak valid, masukkan Y atau N")
+        ENDIF
+    UNTIL (tiketHilang = 'Y' OR tiketHilang = 'N')
+
+    durasiParkir <- ceil(lamaParkir)
+
+    IF (jenisKendaraan = 'M') THEN
+        IF (durasiParkir <= 1) THEN
+            biayaParkir <- 2000
+        ELSE IF (durasiParkir <= 5) THEN
+            biayaParkir <- 2000 + (durasiParkir - 1) * 1000
+        ELSE
+            biayaParkir <- 2000 + (4 * 1000) +
+                           (durasiParkir - 5) * 500
+        ENDIF
+    ELSE
+        IF (durasiParkir <= 1) THEN
+            biayaParkir <- 5000
+        ELSE IF (durasiParkir <= 5) THEN
+            biayaParkir <- 5000 + (durasiParkir - 1) * 2000
+        ELSE
+            biayaParkir <- 5000 + (4 * 2000) +
+                           (durasiParkir - 5) * 1000
+        ENDIF
+    ENDIF
+
+    denda <- 0
+
+    IF (tiketHilang = 'Y') THEN
+        IF (jenisKendaraan = 'M') THEN
+            denda <- 20000
+        ELSE
+            denda <- 50000
+        ENDIF
+    ENDIF
+
+    totalBayar <- biayaParkir + denda
+
+    output("Nomor Kendaraan :", nomorKendaraan)
+    output("Durasi Parkir   :", durasiParkir, "jam")
+    output("Biaya Parkir    :", biayaParkir)
+    output("Denda           :", denda)
+    output("Total Bayar     :", totalBayar)
+
+    kirimKeModulB(nomorKendaraan, durasiParkir,
+                  biayaParkir, denda, totalBayar)
+
+SELESAI
+```
+
+## 7. Flowchart Modul A
