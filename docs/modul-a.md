@@ -140,3 +140,27 @@ SELESAI
 
 ## 7. Flowchart Modul A
 ![Flowchart Modul A](..\flowchart_hitung_biaya_parkir.png)
+
+## 9. Source Code dan Penjelasan
+1. Source code: modul-a.md
+2. Penjelasan source code akan membahas: 
+- Input data kendaraan
+- Validasi input
+- Pembulatan lama parkir
+- Percabangan jenis kendaraan
+- Perhitungan tarif parkir
+- Perhitungan denda
+- Perhitungan total pembayaran
+- Output hasil
+3. Hasil Eksekusi dan Pengujian
+Contoh format:
+- Input:
+- Nomor kendaraan : N 1234 AB
+- Jenis kendaraan : M
+- Lama parkir     : 3 jam
+- Tiket hilang    : T
+- Output:
+- Durasi parkir : 3 jam
+- Biaya parkir  : Rp4000
+- Denda         : Rp0
+- Total bayar   : Rp4000
