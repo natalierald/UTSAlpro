@@ -1,11 +1,11 @@
 # BERANDA
 
 ## 1. Judul Proyek dan Mata Kuliah
-- Judul Proyek: Sistem Pengelolaan Parkir Kampus
-- Mata Kuliah: Algoritma dan Pengantar Pemrograman 
+- Judul Proyek : Sistem Pengelolaan Parkir Kampus
+- Mata Kuliah  : Algoritma dan Pengantar Pemrograman 
 - Program Studi: Sistem Informasi
-- Universitas: Universitas Ma Chung
-- Semester: 1
+- Universitas  : Universitas Ma Chung
+- Semester     : 1
 
 ## 2. Nama Studi Kasus
 - Studi Kasus 01: Sistem Pengelolaan Parkir Kampus
