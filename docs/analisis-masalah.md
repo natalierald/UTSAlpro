@@ -62,3 +62,31 @@ Program terus menerima data kendaraan sampai petugas memilih untuk mengakhiri pr
 |  | Menghitung rekapitulasi kendaraan | Jumlah motor dan mobil |
 |  | Menghitung pendapatan | Pendapatan motor dan mobil |
 |  | Membandingkan biaya untuk mencari biaya tertinggi | Biaya parkir tertinggi |
+
+## 7. Variabel dan Tipe Data
+
+### Variabel dan Tipe Data Modul A
+| Nama Variabel | Tipe Data | Keterangan |
+|---|---|---|
+| `nomorKendaraan` | `string` | Menyimpan nomor kendaraan |
+| `jenisKendaraan` | `char` | M = motor; C = mobil |
+| `lamaParkir` | `double` | Menyimpan lama parkir |
+| `durasiParkir` | `int` | Menyimpan lama parkir setelah dibulatkan ke atas |
+| `tiketHilang` | `char` | Y = Yes; N = No |
+| `biayaParkir` | `int` | Menyimpan biaya parkir |
+| `denda` | `int` | Menyimpan denda kehilangan tiket |
+| `totalBayar` | `int` | Menyimpan total biaya parkir dan denda |
+
+### Variabel dan Tipe Data Modul B
+| Nama Variabel | Tipe Data | Keterangan |
+|--- | --- | --- |
+| 'jumlahMotor' | 'int' | Menyimpan jumlah sepeda motor |
+| 'jumlahMobil' | 'int' | Menyimpan jumlah mobil |
+| 'jumlahTiketHilang' | 'int' | Menyimpan jumlah kendaraan kehilangan tiket |
+| 'pendapatanMotor' | 'int' | Menyimpan jumlah kendaraan kehilangan tiket |
+| 'pendapatanMobil' | 'int' | Menyimpan pendapatan dari mobil |
+| 'totalDenda' | 'int' | Menyimpan total denda |
+| 'totalPendapatan' |'int' | Menyimpan total pendapatan |
+| 'biayaTertinggi' | 'int' | Menyimpan biaya parkir tertinggi |
+| 'pilihan' | 'char' | Menyimpan pilihan lanjut (Y) atau selesai (N) |
+
