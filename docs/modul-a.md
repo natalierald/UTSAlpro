@@ -139,3 +139,4 @@ SELESAI
 ```
 
 ## 7. Flowchart Modul A
+![Flowchart Modul A](..\flowchart_hitung_biaya_parkir.png)
