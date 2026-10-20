@@ -27,3 +27,21 @@ Modul A menerima empat data utama:
 10. Menghitung total pembayaran.
 11. Menampilkan rincian hasil pembayaran.
 12. Menyerahkan hasil perhitungan kepada Modul B untuk proses rekapitulasi.
+
+## 5. Algoritma Deskriptif Modul A
+1. Mulai.
+2. Masukkan nomor kendaraan.
+3. Masukkan jenis kendaraan.
+4. Masukkan lama parkir.
+5. Masukkan status kehilangan tiket.
+6. Periksa apakah seluruh input valid.
+7. Jika input tidak valid atau lama parkir kurang dari atau sama dengan 0, tampilkan pesan kesalahan dan minta pengguna memasukkan kembali data yang benar.
+8. Bulatkan lama parkir ke atas menjadi durasi parkir dalam jam penuh, dengan durasi minimum satu jam.
+9. Jika kendaraan merupakan sepeda motor, hitung biaya parkir berdasarkan tarif sepeda motor.
+10. Jika kendaraan merupakan mobil, hitung biaya parkir berdasarkan tarif mobil.
+11. Periksa status kehilangan tiket.
+12. Jika tiket hilang, tambahkan denda sesuai jenis kendaraan, yaitu Rp20.000 untuk sepeda motor atau Rp50.000 untuk mobil.
+13. Hitung total pembayaran dengan menjumlahkan biaya parkir dan denda.
+14. Tampilkan nomor kendaraan, durasi parkir, biaya parkir, denda, dan total pembayaran.
+15. Hasil perhitungan digunakan oleh Modul B untuk proses rekapitulasi.
+16. Selesai.
