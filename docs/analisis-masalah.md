@@ -48,3 +48,17 @@ Ketentuan yang digunakan dalam program berdasarkan studi kasus adalah sebagai be
 
 ### 5.5 Ketentuan Proses Program
 Program terus menerima data kendaraan sampai petugas memilih untuk mengakhiri proses. Setelah proses selesai, program menampilkan rekapitulasi parkir harian.
+
+## 6. Input-Process-Output (IPO)
+
+| Input | Proses | Output |
+|---|---|---|
+| `nomorKendaraan` | Menerima data kendaraan | `nomorKendaraan` |
+| `jenisKendaraan` | Menentukan tarif berdasarkan jenis kendaraan (motor=M atau mobil=C) | `jenisKendaraan` |
+| `lamaParkir` | Membulatkan durasi ke atas | `durasiParkir` |
+| `statusKehilanganTiket` | Menghitung biaya parkir | `biayaParkir` |
+| Pilihan lanjut/selesai | Menghitung denda jika tiket parkir hilang | `denda` |
+|  | Menghitung total pembayaran | `totalPembayaran` |
+|  | Menghitung rekapitulasi kendaraan | Jumlah motor dan mobil |
+|  | Menghitung pendapatan | Pendapatan motor dan mobil |
+|  | Membandingkan biaya untuk mencari biaya tertinggi | Biaya parkir tertinggi |
