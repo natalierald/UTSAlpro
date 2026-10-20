@@ -5,7 +5,7 @@
 - Judul Proyek: Sistem Pengelolaan Parkir Kampus
 - Mata Kuliah: Algoritma dan Pengantar Pemrograman 
 - Program Studi: Sistem Informasi
-U- niversitas: Universitas Ma Chung
+- Universitas: Universitas Ma Chung
 - Semester: 1
 
 ##2. Nama Studi Kasus
