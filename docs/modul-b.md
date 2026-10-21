@@ -1,7 +1,13 @@
-
 # MODUL B — REKAPITULASI PARKIR
 
-## 4.3 Input Modul B
+## 1. Penanggung Jawab
+Nama: Stephanie Halim Kurniawan
+NIM: 322610011
+
+## 2. Tujuan Modal B
+Modul B bertujuan untuk mengolah seluruh akumulasi data kendaraan dari Modul A untuk menghitung, merangkum, dan menampilkan laporan rekapitulasi pendapatan parkir harian secara menyeluruh setelah petugas mengakhiri proses input.
+
+## 3. Input Modul B
 
 Modul B tidak meminta data baru dari petugas, kecuali pilihan lanjut atau selesai. Data yang diolah berasal dari Modul A untuk setiap kendaraan:
 
@@ -11,7 +17,7 @@ Modul B tidak meminta data baru dari petugas, kecuali pilihan lanjut atau selesa
 - Total pembayaran (`totalBayar`)
 - Pilihan petugas (`pilihan`)
 
-## 4.4 Proses Modul B
+## 4. Proses Modul B
 
 1. Menyiapkan variabel rekapitulasi dengan nilai awal 0.
 2. Menerima hasil perhitungan setiap kendaraan dari Modul A.
@@ -23,7 +29,7 @@ Modul B tidak meminta data baru dari petugas, kecuali pilihan lanjut atau selesa
 8. Menghitung total pendapatan setelah input selesai.
 9. Menampilkan seluruh rekapitulasi.
 
-## 4.5 Algoritma Deskriptif Modul B
+## 5. Algoritma Deskriptif Modul B
 
 1. Mulai.
 2. Inisialisasi seluruh variabel rekapitulasi dengan nilai 0.
@@ -37,8 +43,7 @@ Modul B tidak meminta data baru dari petugas, kecuali pilihan lanjut atau selesa
 10. Tampilkan rekapitulasi.
 11. Selesai.
 
-## 4.7 Pseudocode Modul B
-
+## 6. Pseudocode Modul B
 ```text
 MULAI
 
@@ -81,11 +86,11 @@ OUTPUT rekapitulasi parkir
 SELESAI
 ```
 
-## 4.8 Flowchart Modul B
+## 7. Flowchart Modul B
 
-Masukkan gambar flowchart Modul B pada bagian ini.
+![Flowchart Modul B](../flowchart_pendapatan_parkir.png)
 
-## 4.9 Source Code dan Penjelasan
+## 9. Source Code dan Penjelasan
 
 Nama file source code: `modul-b.cpp`
 
@@ -98,6 +103,14 @@ Penjelasan mencakup:
 - Pilihan lanjut atau selesai
 - Output rekapitulasi
 
-## 4.10 Hasil Eksekusi dan Pengujian
-
-Masukkan data input, output per kendaraan, dan output rekapitulasi parkir harian berdasarkan hasil program yang sudah dijalankan.
+## 10. Hasil Eksekusi dan Pengujian
+```text
+===== REKAPITULASI PARKIR HARIAN =====
+Jumlah sepeda motor        : 2
+Jumlah mobil               : 2
+Kendaraan kehilangan tiket : 2
+Pendapatan sepeda motor    : Rp31000
+Pendapatan mobil           : Rp64000
+Total denda                : Rp70000
+Total pendapatan           : Rp95000
+Biaya parkir tertinggi     : Rp59000
