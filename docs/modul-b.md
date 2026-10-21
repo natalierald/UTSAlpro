@@ -114,3 +114,19 @@ Pendapatan mobil           : Rp64000
 Total denda                : Rp70000
 Total pendapatan           : Rp95000
 Biaya parkir tertinggi     : Rp59000
+
+# 5. Algoritma Deskriptif Modul B
+
+1. Mulai.
+2. Ambil hasil perhitungan pembayaran dari Modul A.
+3. Simpan data pembayaran untuk proses rekapitulasi.
+4. Hitung jumlah sepeda motor.
+5. Hitung jumlah mobil.
+6. Hitung jumlah kendaraan yang kehilangan tiket.
+7. Hitung pendapatan dari sepeda motor.
+8. Hitung pendapatan dari mobil.
+9. Hitung total denda.
+10. Hitung total pendapatan.
+11. Tentukan biaya parkir tertinggi.
+12. Tampilkan rekapitulasi parkir harian.
+13. Selesai.
