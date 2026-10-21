@@ -130,3 +130,46 @@ Biaya parkir tertinggi     : Rp59000
 11. Tentukan biaya parkir tertinggi.
 12. Tampilkan rekapitulasi parkir harian.
 13. Selesai.
+
+## 6. Pseudocode Modul B
+```text
+MULAI
+
+jumlahMotor <- 0
+jumlahMobil <- 0
+jumlahTiketHilang <- 0
+pendapatanMotor <- 0
+pendapatanMobil <- 0
+totalDenda <- 0
+biayaTertinggi <- 0
+pilihan <- 'Y'
+
+WHILE pilihan = 'Y' DO
+    Terima hasil perhitungan Modul A
+
+    IF jenisKendaraan = 'M' THEN
+        jumlahMotor <- jumlahMotor + 1
+        pendapatanMotor <- pendapatanMotor + totalBayar
+    ELSE
+        jumlahMobil <- jumlahMobil + 1
+        pendapatanMobil <- pendapatanMobil + totalBayar
+    END IF
+
+    IF tiketHilang = 'Y' THEN
+        jumlahTiketHilang <- jumlahTiketHilang + 1
+        totalDenda <- totalDenda + denda
+    END IF
+
+    IF totalBayar > biayaTertinggi THEN
+        biayaTertinggi <- totalBayar
+    END IF
+
+    INPUT pilihan
+END WHILE
+
+totalPendapatan <- pendapatanMotor + pendapatanMobil
+
+OUTPUT rekapitulasi parkir
+
+SELESAI
+```
