@@ -173,3 +173,15 @@ OUTPUT rekapitulasi parkir
 
 SELESAI
 ```
+## 9. Source Code dan Penjelasan
+
+Nama file source code: `modul-b.cpp`
+
+Penjelasan mencakup:
+- Deklarasi variabel rekapitulasi
+- Perulangan utama
+- Input dan validasi
+- Perhitungan per kendaraan
+- Akumulasi rekapitulasi
+- Pilihan lanjut atau selesai
+- Output rekapitulasi
