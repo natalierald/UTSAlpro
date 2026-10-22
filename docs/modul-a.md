@@ -142,7 +142,7 @@ SELESAI
 ![Flowchart Modul A](..\flowchart_hitung_biaya_parkir.png)
 
 ## 9. Source Code dan Penjelasan
-1. Source code: modul-a.md
+1. Source code: modul-a.cpp
 2. Penjelasan source code akan membahas: 
 - Input data kendaraan
 - Validasi input
