@@ -1,160 +1,199 @@
+
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <cctype>
 using namespace std;
 
 int main() {
     // Variabel Modul A
     string nomorKendaraan;
-    char jenisKendaraan, tiketHilang;
+    char jenisKendaraan;
     double lamaParkir;
-    int durasiParkir, biayaParkir, denda, totalBayar;
+    char tiketHilang;
+    int durasiParkir;
+    int biayaParkir;
+    int denda;
+    int totalBayar;
 
     // Variabel Modul B
     int jumlahMotor = 0;
     int jumlahMobil = 0;
     int jumlahTiketHilang = 0;
+    int jumlahSeluruhKendaraan = 0;
+
     int pendapatanMotor = 0;
     int pendapatanMobil = 0;
     int totalDenda = 0;
-    int biayaTertinggi = 0;
     int totalPendapatan = 0;
+    int biayaTertinggi = 0;
+
     char pilihan = 'Y';
 
-    cout << "=== PROGRAM PENGELOLAAN PARKIR KAMPUS ===" << endl;
+    cout << "=== PROGRAM PENGELOLAAN PARKIR KAMPUS ===\n";
 
-    while (pilihan == 'Y' || pilihan == 'y') {
-        // INPUT DATA KENDARAAN
-        cout << endl;
-        cout << "Masukkan nomor kendaraan: ";
+    while (pilihan == 'Y') {
+        // MODUL A: INPUT DATA KENDARAAN
+        cout << "\nMasukkan nomor kendaraan: ";
         cin >> nomorKendaraan;
 
-        cout << "Jenis kendaraan (M = Motor, C = Mobil): ";
-        cin >> jenisKendaraan;
-
-        while (jenisKendaraan != 'M' && jenisKendaraan != 'm' &&
-               jenisKendaraan != 'C' && jenisKendaraan != 'c') {
-            cout << "Input salah! Masukkan M atau C: ";
+        // Validasi jenis kendaraan
+        do {
+            cout << "Jenis kendaraan (M = Motor, C = Mobil): ";
             cin >> jenisKendaraan;
-        }
+            jenisKendaraan = toupper(jenisKendaraan);
 
-        cout << "Masukkan lama parkir (jam): ";
-        cin >> lamaParkir;
+            if (jenisKendaraan != 'M' &&
+                jenisKendaraan != 'C') {
+                cout << "Jenis kendaraan tidak valid!\n";
+            }
+        } while (jenisKendaraan != 'M' &&
+                 jenisKendaraan != 'C');
 
-        while (lamaParkir <= 0) {
-            cout << "Lama parkir harus lebih dari 0 jam: ";
+        // Validasi lama parkir
+        do {
+            cout << "Masukkan lama parkir (jam): ";
             cin >> lamaParkir;
-        }
 
-        cout << "Apakah tiket hilang? (Y = Ya, N = Tidak): ";
-        cin >> tiketHilang;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(10000, '\n');
+                lamaParkir = 0;
+            }
 
-        while (tiketHilang != 'Y' && tiketHilang != 'y' &&
-               tiketHilang != 'N' && tiketHilang != 'n') {
-            cout << "Input salah! Masukkan Y atau N: ";
+            if (lamaParkir <= 0) {
+                cout << "Input tidak valid. "
+                     << "Lama parkir harus lebih dari 0.\n";
+            }
+        } while (lamaParkir <= 0);
+
+        // Validasi status tiket
+        do {
+            cout << "Apakah tiket hilang? (Y = Ya, N = Tidak): ";
             cin >> tiketHilang;
-        }
+            tiketHilang = toupper(tiketHilang);
 
-        // MENGHITUNG DURASI PARKIR
-        durasiParkir = ceil(lamaParkir);
+            if (tiketHilang != 'Y' &&
+                tiketHilang != 'N') {
+                cout << "Input tidak valid!\n";
+            }
+        } while (tiketHilang != 'Y' &&
+                 tiketHilang != 'N');
 
-        biayaParkir = 0;
-        denda = 0;
+        // Menghitung durasi parkir
+        durasiParkir = static_cast<int>(ceil(lamaParkir));
 
-        // MODUL A: MENGHITUNG BIAYA PARKIR MOTOR
-        if (jenisKendaraan == 'M' || jenisKendaraan == 'm') {
+        // Menghitung biaya parkir berdasarkan jenis kendaraan
+        if (jenisKendaraan == 'M') {
             if (durasiParkir <= 1) {
                 biayaParkir = 2000;
             } else if (durasiParkir <= 5) {
-                biayaParkir = 2000 + (durasiParkir - 1) * 1000;
+                biayaParkir = 2000
+                            + (durasiParkir - 1) * 1000;
             } else {
-                biayaParkir = 6000 + (durasiParkir - 5) * 500;
+                biayaParkir = 2000 + (4 * 1000)
+                            + (durasiParkir - 5) * 500;
             }
-
-            if (tiketHilang == 'Y' || tiketHilang == 'y') {
-                denda = 20000;
-            }
-        }
-
-        // MODUL A: MENGHITUNG BIAYA PARKIR MOBIL
-        else {
+        } else {
             if (durasiParkir <= 1) {
                 biayaParkir = 5000;
             } else if (durasiParkir <= 5) {
-                biayaParkir = 5000 + (durasiParkir - 1) * 2000;
+                biayaParkir = 5000
+                            + (durasiParkir - 1) * 2000;
             } else {
-                biayaParkir = 13000 + (durasiParkir - 5) * 1000;
+                biayaParkir = 5000 + (4 * 2000)
+                            + (durasiParkir - 5) * 1000;
             }
+        }
 
-            if (tiketHilang == 'Y' || tiketHilang == 'y') {
+        // Menghitung denda
+        denda = 0;
+
+        if (tiketHilang == 'Y') {
+            if (jenisKendaraan == 'M') {
+                denda = 20000;
+            } else {
                 denda = 50000;
             }
         }
 
-        // MENGHITUNG TOTAL PEMBAYARAN
+        // Menghitung total pembayaran
         totalBayar = biayaParkir + denda;
 
-        // MENAMPILKAN RINCIAN PEMBAYARAN
-        cout << endl;
-        cout << "=== RINCIAN PEMBAYARAN ===" << endl;
+        // Menampilkan rincian pembayaran
+        cout << "\n=== RINCIAN PEMBAYARAN ===\n";
         cout << "Nomor kendaraan : " << nomorKendaraan << endl;
 
-        if (jenisKendaraan == 'M' || jenisKendaraan == 'm') {
-            cout << "Jenis kendaraan : Motor" << endl;
+        cout << "Jenis kendaraan : ";
+        if (jenisKendaraan == 'M') {
+            cout << "Motor\n";
         } else {
-            cout << "Jenis kendaraan : Mobil" << endl;
+            cout << "Mobil\n";
         }
 
-        cout << "Lama parkir     : " << lamaParkir << " jam" << endl;
-        cout << "Durasi dihitung : " << durasiParkir << " jam" << endl;
+        cout << "Lama parkir     : " << lamaParkir << " jam\n";
+        cout << "Durasi dihitung : " << durasiParkir << " jam\n";
         cout << "Biaya parkir    : Rp" << biayaParkir << endl;
         cout << "Denda           : Rp" << denda << endl;
         cout << "Total pembayaran: Rp" << totalBayar << endl;
 
-        // MODUL B: REKAPITULASI KENDARAAN
-        if (jenisKendaraan == 'M' || jenisKendaraan == 'm') {
-            jumlahMotor = jumlahMotor + 1;
-            pendapatanMotor = pendapatanMotor + totalBayar;
+        // MODUL B: MEMPERBARUI REKAPITULASI
+        jumlahSeluruhKendaraan++;
+
+        if (jenisKendaraan == 'M') {
+            jumlahMotor++;
+            pendapatanMotor += biayaParkir;
         } else {
-            jumlahMobil = jumlahMobil + 1;
-            pendapatanMobil = pendapatanMobil + totalBayar;
+            jumlahMobil++;
+            pendapatanMobil += biayaParkir;
         }
 
-        if (tiketHilang == 'Y' || tiketHilang == 'y') {
-            jumlahTiketHilang = jumlahTiketHilang + 1;
-            totalDenda = totalDenda + denda;
+        if (tiketHilang == 'Y') {
+            jumlahTiketHilang++;
+            totalDenda += denda;
         }
 
         if (totalBayar > biayaTertinggi) {
             biayaTertinggi = totalBayar;
         }
 
-        totalPendapatan = pendapatanMotor + pendapatanMobil;
+        // Menanyakan transaksi berikutnya
+        do {
+            cout << "\nTambah kendaraan lagi? (Y = Ya, N = Tidak): ";
+            cin >> pilihan;
+            pilihan = toupper(pilihan);
 
-        // MENENTUKAN APAKAH ADA KENDARAAN BERIKUTNYA
-        cout << endl;
-        cout << "Tambah kendaraan lagi? (Y = Ya, N = Tidak): ";
-        cin >> pilihan;
+            if (pilihan != 'Y' && pilihan != 'N') {
+                cout << "Input tidak valid!\n";
+            }
+        } while (pilihan != 'Y' && pilihan != 'N');
     }
 
-    // MENAMPILKAN REKAPITULASI AKHIR
-    cout << endl;
-    cout << "======================================" << endl;
-    cout << "       REKAPITULASI PARKIR KAMPUS" << endl;
-    cout << "======================================" << endl;
-    cout << "Jumlah motor         : " << jumlahMotor << endl;
-    cout << "Jumlah mobil         : " << jumlahMobil << endl;
-    cout << "Jumlah seluruh kendaraan: "
-         << jumlahMotor + jumlahMobil << endl;
-    cout << "Jumlah tiket hilang  : " << jumlahTiketHilang << endl;
-    cout << "Pendapatan motor     : Rp" << pendapatanMotor << endl;
-    cout << "Pendapatan mobil     : Rp" << pendapatanMobil << endl;
-    cout << "Total denda          : Rp" << totalDenda << endl;
-    cout << "Total pendapatan     : Rp" << totalPendapatan << endl;
-    cout << "Pembayaran tertinggi : Rp" << biayaTertinggi << endl;
-    cout << "======================================" << endl;
+    // Menghitung total pendapatan
+    totalPendapatan = pendapatanMotor
+                    + pendapatanMobil
+                    + totalDenda;
 
-    cout << "Program selesai." << endl;
+    // Menampilkan rekapitulasi akhir
+    cout << "\n=== REKAPITULASI PARKIR KAMPUS ===\n";
+    cout << "Jumlah motor           : " << jumlahMotor << endl;
+    cout << "Jumlah mobil           : " << jumlahMobil << endl;
+    cout << "Jumlah seluruh kendaraan: "
+         << jumlahSeluruhKendaraan << endl;
+    cout << "Jumlah tiket hilang    : "
+         << jumlahTiketHilang << endl;
+    cout << "Pendapatan motor       : Rp"
+         << pendapatanMotor << endl;
+    cout << "Pendapatan mobil       : Rp"
+         << pendapatanMobil << endl;
+    cout << "Total denda            : Rp"
+         << totalDenda << endl;
+    cout << "Total pendapatan       : Rp"
+         << totalPendapatan << endl;
+    cout << "Pembayaran tertinggi   : Rp"
+         << biayaTertinggi << endl;
+
+    cout << "\n=== PROGRAM SELESAI ===\n";
 
     return 0;
 }

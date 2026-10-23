@@ -2,83 +2,137 @@
 using namespace std;
 
 int main() {
-    // Deklarasi variabel rekapitulasi
     int jumlahMotor = 0;
     int jumlahMobil = 0;
     int jumlahTiketHilang = 0;
+
     int pendapatanMotor = 0;
     int pendapatanMobil = 0;
     int totalDenda = 0;
+    int totalPendapatan = 0;
     int biayaTertinggi = 0;
 
+    char jenisKendaraan;
+    char tiketHilang;
     char pilihan = 'Y';
-    char jenisKendaraan, tiketHilang;
-    int biayaParkir, denda, totalBayar;
+
+    int biayaParkir;
+    int denda;
+    int totalBayar;
 
     cout << "=== REKAPITULASI PARKIR ===" << endl;
 
-    while (pilihan == 'Y' || pilihan == 'y') {
-        // Menerima data hasil perhitungan Modul A
-        cout << "\nJenis kendaraan (M = Motor, C = Mobil): ";
-        cin >> jenisKendaraan;
-
-        while (jenisKendaraan != 'M' && jenisKendaraan != 'm' &&
-               jenisKendaraan != 'C' && jenisKendaraan != 'c') {
-            cout << "Input salah! Masukkan M atau C: ";
+    while (pilihan == 'Y') {
+        // Input jenis kendaraan
+        do {
+            cout << "\nJenis kendaraan (M = Motor, C = Mobil): ";
             cin >> jenisKendaraan;
-        }
-        // harus dalam bentuk huruf kapital M atau C
 
-        cout << "Apakah tiket hilang? (Y = Ya, N = Tidak): ";
-        cin >> tiketHilang;
+            if (jenisKendaraan != 'M' &&
+                jenisKendaraan != 'm' &&
+                jenisKendaraan != 'C' &&
+                jenisKendaraan != 'c') {
+                cout << "Jenis kendaraan tidak valid!\n";
+            }
+        } while (jenisKendaraan != 'M' &&
+                 jenisKendaraan != 'm' &&
+                 jenisKendaraan != 'C' &&
+                 jenisKendaraan != 'c');
 
-        cout << "Masukkan biaya parkir: Rp";
-        cin >> biayaParkir;
-        // harus dalam bentuk angka
+        if (jenisKendaraan == 'm') jenisKendaraan = 'M';
+        if (jenisKendaraan == 'c') jenisKendaraan = 'C';
 
-        cout << "Masukkan denda: Rp";
-        cin >> denda;
-        // harus dalam bentuk angka
+        // Input status tiket
+        do {
+            cout << "Apakah tiket hilang? (Y/N): ";
+            cin >> tiketHilang;
 
+            if (tiketHilang == 'y') tiketHilang = 'Y';
+            if (tiketHilang == 'n') tiketHilang = 'N';
+
+            if (tiketHilang != 'Y' && tiketHilang != 'N') {
+                cout << "Input tidak valid!\n";
+            }
+        } while (tiketHilang != 'Y' && tiketHilang != 'N');
+
+        // Input biaya parkir
+        do {
+            cout << "Masukkan biaya parkir: Rp";
+            cin >> biayaParkir;
+
+            if (biayaParkir < 0) {
+                cout << "Biaya tidak boleh negatif!\n";
+            }
+        } while (biayaParkir < 0);
+
+        // Input denda
+        do {
+            cout << "Masukkan denda: Rp";
+            cin >> denda;
+
+            if (denda < 0) {
+                cout << "Denda tidak boleh negatif!\n";
+            }
+        } while (denda < 0);
+
+        // Menghitung total pembayaran
         totalBayar = biayaParkir + denda;
 
-        // Menghitung jumlah kendaraan dan pendapatan
-        if (jenisKendaraan == 'M' || jenisKendaraan == 'm') {
-            jumlahMotor = jumlahMotor + 1;
-            pendapatanMotor = pendapatanMotor + totalBayar;
+        // Memperbarui rekapitulasi
+        if (jenisKendaraan == 'M') {
+            jumlahMotor++;
+            pendapatanMotor += biayaParkir;
         } else {
-            jumlahMobil = jumlahMobil + 1;
-            pendapatanMobil = pendapatanMobil + totalBayar;
+            jumlahMobil++;
+            pendapatanMobil += biayaParkir;
         }
 
-        // Menghitung tiket hilang dan total denda
-        if (tiketHilang == 'Y' || tiketHilang == 'y') {
-            jumlahTiketHilang = jumlahTiketHilang + 1;
-            totalDenda = totalDenda + denda;
+        if (tiketHilang == 'Y') {
+            jumlahTiketHilang++;
+            totalDenda += denda;
         }
 
-        // Mencari pembayaran tertinggi
         if (totalBayar > biayaTertinggi) {
             biayaTertinggi = totalBayar;
         }
 
-        cout << "\nTambah data kendaraan? (Y = Ya, N = Tidak): ";
-        cin >> pilihan;
+        // Menanyakan transaksi berikutnya
+        do {
+            cout << "Tambah data kendaraan? (Y/N): ";
+            cin >> pilihan;
+
+            if (pilihan == 'y') pilihan = 'Y';
+            if (pilihan == 'n') pilihan = 'N';
+
+            if (pilihan != 'Y' && pilihan != 'N') {
+                cout << "Input tidak valid!\n";
+            }
+        } while (pilihan != 'Y' && pilihan != 'N');
     }
 
-    // Menghitung total pendapatan
-    int totalPendapatan = pendapatanMotor + pendapatanMobil;
+    // Menghitung total pendapatan tanpa menghitung denda dua kali
+    totalPendapatan = pendapatanMotor
+                    + pendapatanMobil
+                    + totalDenda;
 
     // Menampilkan rekapitulasi
-    cout << "\n=== REKAPITULASI PARKIR ===" << endl;
-    cout << "Jumlah motor          : " << jumlahMotor << endl;
-    cout << "Jumlah mobil          : " << jumlahMobil << endl;
-    cout << "Jumlah tiket hilang   : " << jumlahTiketHilang << endl;
-    cout << "Pendapatan motor      : Rp" << pendapatanMotor << endl;
-    cout << "Pendapatan mobil      : Rp" << pendapatanMobil << endl;
-    cout << "Total denda           : Rp" << totalDenda << endl;
-    cout << "Total pendapatan      : Rp" << totalPendapatan << endl;
-    cout << "Pembayaran tertinggi  : Rp" << biayaTertinggi << endl;
+    cout << "\n=== REKAPITULASI PARKIR ===\n";
+    cout << "Jumlah motor        : " << jumlahMotor << endl;
+    cout << "Jumlah mobil        : " << jumlahMobil << endl;
+    cout << "Jumlah seluruh kendaraan: "
+         << jumlahMotor + jumlahMobil << endl;
+    cout << "Jumlah tiket hilang : "
+         << jumlahTiketHilang << endl;
+    cout << "Pendapatan motor    : Rp"
+         << pendapatanMotor << endl;
+    cout << "Pendapatan mobil    : Rp"
+         << pendapatanMobil << endl;
+    cout << "Total denda         : Rp"
+         << totalDenda << endl;
+    cout << "Total pendapatan    : Rp"
+         << totalPendapatan << endl;
+    cout << "Pembayaran tertinggi: Rp"
+         << biayaTertinggi << endl;
 
     return 0;
 }
