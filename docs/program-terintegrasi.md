@@ -220,7 +220,7 @@ Selain itu, program dilengkapi dengan fitur perulangan untuk memproses beberapa 
 ## 7. Trace Table
 
 ### A. Trace Table Transaksi Pertama
-Input: Nomor kendaraan `N112MM`, jenis motor, lama parkir 4,6 jam, dan tiket tidak hilang.
+Input: Nomor kendaraan `N112MM`, jenis MOTOR, lama parkir 4,6 jam, dan tiket tidak hilang.
 
 | Langkah | `lamaParkir` | `durasiParkir` | `biayaParkir` | `denda` | `totalBayar` |
 |---|---:|---:|---:|---:|---:|
@@ -231,7 +231,7 @@ Input: Nomor kendaraan `N112MM`, jenis motor, lama parkir 4,6 jam, dan tiket tid
 | Menghitung total pembayaran | 4,6 | 5 | 6.000 | 0 | 6.000 |
 
 ### B. Trace Table Transaksi Kedua
-Input: Nomor kendaraan `M334JK`, jenis mobil, lama parkir 2 jam, dan tiket hilang.
+Input: Nomor kendaraan `M334JK`, jenis MOBIL, lama parkir 2 jam, dan tiket hilang.
 
 | Langkah | `lamaParkir` | `durasiParkir` | `biayaParkir` | `denda` | `totalBayar` |
 |---|---:|---:|---:|---:|---:|

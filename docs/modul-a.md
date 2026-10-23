@@ -153,14 +153,4 @@ SELESAI
 - Perhitungan total pembayaran
 - Output hasil
 3. Hasil Eksekusi dan Pengujian
-Contoh format:
-- Input:
-- Nomor kendaraan : N 1234 AB
-- Jenis kendaraan : M
-- Lama parkir     : 3 jam
-- Tiket hilang    : T
-- Output:
-- Durasi parkir : 3 jam
-- Biaya parkir  : Rp4000
-- Denda         : Rp0
-- Total bayar   : Rp4000
+![Code Run Modul A](modul-a%20runner.jpg)

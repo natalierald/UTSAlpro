@@ -185,3 +185,6 @@ Penjelasan mencakup:
 - Akumulasi rekapitulasi
 - Pilihan lanjut atau selesai
 - Output rekapitulasi
+
+## 10. Eksekusi
+![Code Run Modul B](modul-b%20runner.jpg)
