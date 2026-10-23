@@ -188,6 +188,8 @@ Merupakan hasil penggabungan Modul A dan Modul B ke dalam satu program menggunak
 Selain itu, program dilengkapi dengan fitur perulangan untuk memproses beberapa transaksi kendaraan serta rekapitulasi jumlah motor, jumlah mobil, jumlah tiket hilang, pendapatan parkir, total denda, total pendapatan, dan pembayaran tertinggi.
 
 ## 5. Hasil Eksekusi
+![Code-Run-main](..\main_code_running1.png)
+![Code-Run-main2](..\main_code_running2.png)
 
 ## 6.  Tabel Pengujian
 ### A. Pengujian Modul A

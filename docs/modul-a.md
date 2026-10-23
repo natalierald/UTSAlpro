@@ -153,4 +153,5 @@ SELESAI
 - Perhitungan total pembayaran
 - Output hasil
 3. Hasil Eksekusi dan Pengujian
-![Code Run Modul A](modul-a%20runner.jpg)
+![Code Run Modul A](..\modul_a_code_running.png)
+

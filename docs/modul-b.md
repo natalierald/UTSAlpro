@@ -186,5 +186,5 @@ Penjelasan mencakup:
 - Pilihan lanjut atau selesai
 - Output rekapitulasi
 
-## 10. Eksekusi
-![Code Run Modul B](modul-b%20runner.jpg)
+## 10. Hasil Eksekusi
+![Code Run Modul B](..\modul_b_code_running.png)
