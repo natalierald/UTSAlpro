@@ -139,7 +139,7 @@ SELESAI
 ```
 
 ## 7. Flowchart Modul A
-![Flowchart Modul A](..\flowchart_hitung_biaya_parkir.png)
+![Flowchart Modul A](..\flowchart_modul_a.png.png)
 
 ## 9. Source Code dan Penjelasan
 1. Source code: modul-a.cpp
