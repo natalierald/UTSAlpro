@@ -260,3 +260,11 @@ Input: Nomor kendaraan `M334JK`, jenis MOBIL, lama parkir 2 jam, dan tiket hilan
 |---|---|---|---|
 | 1 | Pendapatan motor dan mobil pada Modul B tidak sesuai dengan rincian biaya parkir. | Nilai pendapatan kemungkinan sudah mencakup denda, sedangkan denda juga dicatat secara terpisah. | Memisahkan pencatatan biaya parkir dan denda agar tidak terjadi penghitungan ganda. |
 | 2 | Nilai pendapatan mobil pada hasil `main.cpp` ditampilkan sebesar Rp57.000, bukan Rp7.000. | Nilai yang ditampilkan kemungkinan merupakan total pembayaran mobil yang sudah termasuk denda. | Memastikan variabel `pendapatanMobil` hanya mencatat biaya parkir, sedangkan denda dicatat pada `totalDenda`. |
+
+## 9. Hasil Eksekusi Perbaikan
+### A. Hasil Revisi Code Modul B
+![Revisi-code-modul-b](..\revisi_modul_b_running.png)
+
+### B. Hasil Revisi Code Main
+![Revisi-code-main1](..\revisi_main_running1.png)
+![Revisi-code-main2](..\revisi_main_running2.png)
