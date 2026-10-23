@@ -27,15 +27,18 @@ int main() {
             cout << "Input salah! Masukkan M atau C: ";
             cin >> jenisKendaraan;
         }
+        // harus dalam bentuk huruf kapital M atau C
 
         cout << "Apakah tiket hilang? (Y = Ya, N = Tidak): ";
         cin >> tiketHilang;
 
         cout << "Masukkan biaya parkir: Rp";
         cin >> biayaParkir;
+        // harus dalam bentuk angka
 
         cout << "Masukkan denda: Rp";
         cin >> denda;
+        // harus dalam bentuk angka
 
         totalBayar = biayaParkir + denda;
 
