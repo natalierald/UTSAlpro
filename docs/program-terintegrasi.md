@@ -180,3 +180,75 @@ SELESAI
 ## 3. Flowchart Final
 ![Flowchart Final](..\flowchart_besar_program_parkir.png)
 
+## 4. Source Code dan Penjelasan
+1. Source code : main.cpp
+2. Penjelasan :
+Merupakan hasil penggabungan Modul A dan Modul B ke dalam satu program menggunakan bahasa pemrograman C++. Program ini mencakup proses input dan validasi data kendaraan, perhitungan durasi serta biaya parkir berdasarkan jenis kendaraan, penentuan denda apabila tiket hilang, dan penampilan rincian pembayaran.
+
+Selain itu, program dilengkapi dengan fitur perulangan untuk memproses beberapa transaksi kendaraan serta rekapitulasi jumlah motor, jumlah mobil, jumlah tiket hilang, pendapatan parkir, total denda, total pendapatan, dan pembayaran tertinggi.
+
+## 5. Hasil Eksekusi
+
+## 6.  Tabel Pengujian
+### A. Pengujian Modul A
+
+| No. | Skenario Pengujian | Input | Hasil yang Diharapkan | Hasil Aktual | Status |
+|---|---|---|---|---|---|
+| 1 | Motor parkir 3 jam tanpa kehilangan tiket | Jenis: M, durasi: 3 jam, tiket: N | Biaya parkir Rp4.000, denda Rp0, total Rp4.000 | Biaya Rp4.000, denda Rp0, total Rp4.000 | Berhasil |
+| 2 | Motor parkir 4,6 jam tanpa kehilangan tiket | Jenis: M, durasi: 4,6 jam, tiket: N | Durasi dibulatkan menjadi 5 jam dan biaya Rp6.000 | Durasi 5 jam, biaya Rp6.000, total Rp6.000 | Berhasil |
+
+### B. Pengujian Modul B
+
+| No. | Skenario Pengujian | Hasil yang Diharapkan | Hasil Aktual | Status |
+|---|---|---|---|---|
+| 1 | Dua transaksi motor dan satu transaksi mobil | Jumlah motor 2 dan jumlah mobil 1 | Jumlah motor 2 dan jumlah mobil 1 | Berhasil |
+| 2 | Dua kendaraan kehilangan tiket | Jumlah tiket hilang 2 dan total denda Rp70.000 | Jumlah tiket hilang 2 dan total denda Rp70.000 | Berhasil |
+| 3 | Menghitung total pendapatan | Pendapatan motor Rp10.000, pendapatan mobil Rp60.000, total pendapatan Rp140.000 jika pendapatan motor dan mobil memasukkan denda sesuai hasil aktual | Pendapatan motor Rp30.000, pendapatan mobil Rp110.000, total pendapatan Rp140.000 | Perlu diperiksa |
+
+
+### C. Pengujian Program Terintegrasi (`main.cpp`)
+
+| No. | Skenario Pengujian | Hasil yang Diharapkan | Hasil Aktual | Status |
+|---|---|---|---|---|
+| 1 | Motor parkir 4,6 jam tanpa kehilangan tiket | Durasi 5 jam, biaya Rp6.000, denda Rp0, total Rp6.000 | Durasi 5 jam, biaya Rp6.000, denda Rp0, total Rp6.000 | Berhasil |
+| 2 | Mobil parkir 2 jam dengan tiket hilang | Biaya Rp7.000, denda Rp50.000, total Rp57.000 | Biaya Rp7.000, denda Rp50.000, total Rp57.000 | Berhasil |
+| 3 | Menghitung jumlah kendaraan | 1 motor dan 1 mobil | 1 motor dan 1 mobil | Berhasil |
+| 4 | Menghitung jumlah tiket hilang | 1 tiket hilang | 1 tiket hilang | Berhasil |
+| 5 | Menghitung total pendapatan | Rp63.000 | Rp63.000 | Berhasil |
+| 6 | Menentukan pembayaran tertinggi | Rp57.000 | Rp57.000 | Berhasil |
+
+## 7. Trace Table
+
+### A. Trace Table Transaksi Pertama
+Input: Nomor kendaraan `N112MM`, jenis motor, lama parkir 4,6 jam, dan tiket tidak hilang.
+
+| Langkah | `lamaParkir` | `durasiParkir` | `biayaParkir` | `denda` | `totalBayar` |
+|---|---:|---:|---:|---:|---:|
+| Input kendaraan | 4,6 | - | - | - | - |
+| Pembulatan durasi | 4,6 | 5 | - | - | - |
+| Menghitung biaya parkir | 4,6 | 5 | 6.000 | - | - |
+| Memeriksa status tiket | 4,6 | 5 | 6.000 | 0 | - |
+| Menghitung total pembayaran | 4,6 | 5 | 6.000 | 0 | 6.000 |
+
+### B. Trace Table Transaksi Kedua
+Input: Nomor kendaraan `M334JK`, jenis mobil, lama parkir 2 jam, dan tiket hilang.
+
+| Langkah | `lamaParkir` | `durasiParkir` | `biayaParkir` | `denda` | `totalBayar` |
+|---|---:|---:|---:|---:|---:|
+| Input kendaraan | 2 | - | - | - | - |
+| Pembulatan durasi | 2 | 2 | - | - | - |
+| Menghitung biaya parkir | 2 | 2 | 7.000 | - | - |
+| Memeriksa status tiket | 2 | 2 | 7.000 | 50.000 | - |
+| Menghitung total pembayaran | 2 | 2 | 7.000 | 50.000 | 57.000 |
+
+### C. Trace Table Rekapitulasi
+| Variabel | Nilai Awal | Setelah Transaksi 1 | Setelah Transaksi 2 |
+|---|---:|---:|---:|
+| `jumlahMotor` | 0 | 1 | 1 |
+| `jumlahMobil` | 0 | 0 | 1 |
+| `jumlahTiketHilang` | 0 | 0 | 1 |
+| `pendapatanMotor` | 0 | 6.000 | 6.000 |
+| `pendapatanMobil` | 0 | 0 | 7.000 |
+| `totalDenda` | 0 | 0 | 50.000 |
+| `totalPendapatan` | 0 | 6.000 | 63.000 |
+| `biayaTertinggi` | 0 | 6.000 | 57.000 |
